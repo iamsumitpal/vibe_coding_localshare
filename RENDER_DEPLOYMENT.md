@@ -29,8 +29,10 @@ Add these environment variables in Render dashboard:
 - `NODE_ENV`: `production`
 - `PORT`: `10000`
 
-### Step 4: Update WebSocket URL
-After deployment, update the WebSocket URL in `index.html`:
+### Step 4: WebSocket URL (Automatic)
+The app automatically detects the Render URL using `window.location.hostname`, so no manual update is needed.
+
+If you need to manually set the URL, update in `index.html`:
 ```javascript
 const SIGNALING_SERVERS = [
     'wss://your-app-name.onrender.com',  // Replace with your actual Render URL
@@ -50,8 +52,10 @@ const SIGNALING_SERVERS = [
 
 ### Common Issues:
 - **Build fails**: Check that all dependencies are in `package.json`
-- **WebSocket connection fails**: Ensure the URL is updated correctly
+- **WebSocket connection fails**: The app automatically detects the Render URL
 - **Port issues**: Render automatically sets the PORT environment variable
+- **Static files not loading**: Server now serves HTML, CSS, JS files directly
+- **CORS issues**: Added CORS headers for cross-origin requests
 
 ### Render Free Tier Limitations:
 - **Sleep after inactivity**: Service may sleep after 15 minutes of inactivity
