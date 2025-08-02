@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Share</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Share files directly between browsers on your local network">
+    <meta name="theme-color" content="#3b82f6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Local Share">
+    <meta name="msapplication-TileColor" content="#3b82f6">
+    <meta name="msapplication-tap-highlight" content="no">
+    
+    <!-- PWA Icons -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0idXJsKCNncmFkaWVudCkiLz4KPHBhdGggZD0iTTE2IDhDMTEuNiA4IDggMTEuNiA4IDE2djhjMCA0LjQgMy42IDggOCA4aDhjNC40IDAgOC0zLjYgOC04di04QzI0IDExLjYgMjAuNCA4IDE2IDhaIiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjkiLz4KPHBhdGggZD0iTTE2IDEwYzMuMyAwIDYgMi43IDYgNnY0YzAgMy4zLTIuNyA2LTYgNnMtNi0yLjctNi02di00QzEwIDEyLjcgMTIuNyAxMCAxNiAxMFoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xNiAxNmMtMi4yIDAtNC0xLjgtNC00czEuOC00IDQtNCA0IDEuOCA0IDQtMS44IDQtNCA0WiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdyYWRpZW50IiB4MT0iMCIgeTE9IjAiIHgyPSIzMiIgeTI9IjMyIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMzYjgyZjYiLz4KPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjNjM2NmZhIi8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4K">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iMjIiIGZpbGw9InVybCgjZ3JhZGllbnQpIi8+CjxwYXRoIGQ9Ik05MCA0NUM2Ny4yIDQ1IDQ5IDYzLjIgNDkgODZ2NDhjMCAyMi44IDE4LjIgNDEgNDEgNDFoNDBjMjIuOCAwIDQxLTE4LjIgNDEtNDFWOThDMTgwIDYzLjIgMTYxLjggNDUgMTM5IDQ1SDkwWiIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iMC45Ii8+CjxwYXRoIGQ9Ik05MCA2MGMxNC40IDAgMjYgMTEuNiAyNiAyNnY0MGMwIDE0LjQtMTEuNiAyNi0yNiAyNlM2NCAxNDAuNCA2NCAxMjZWODZDNjQgNzEuNiA3NS42IDYwIDkwIDYwWiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTkwIDEyMGMtMTEuMSAwLTIwLTguOS0yMC0yMHM4LjktMjAgMjAtMjAgMjAgOC45IDIwIDIwLTguOSAyMC0yMCAyMFoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAiIHkxPSIwIiB4Mj0iMTgwIiB5Mj0iMTgwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMzYjgyZjYiLz4KPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjNjM2NmZhIi8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4K">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 min-h-screen">
+    <div class="container mx-auto px-4 py-4 md:py-8 max-w-4xl">
+        <div class="text-center mb-6 md:mb-10">
+            <div class="inline-flex items-center justify-center">
+                <div class="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mr-3 shadow-lg">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                    </svg>
+                </div>
+                <h1 class="text-3xl md:text-5xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">Local Share</h1>
+            </div>
+        </div>
+
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-4 mb-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between space-y-2 sm:space-y-0">
+                <div class="flex items-center">
+                    <div class="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></div>
+                    <span class="text-sm font-medium text-gray-600">Your Username:</span>
+                    <span id="username" class="ml-2 text-base md:text-lg font-bold text-blue-600"></span>
+                </div>
+                <div class="flex items-center">
+                    <div id="connectionStatus" class="w-3 h-3 rounded-full bg-gray-300 mr-2"></div>
+                    <span id="statusText" class="text-xs md:text-sm text-gray-600">Connecting...</span>
+                </div>
+            </div>
+        </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center mr-3">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-lg md:text-xl font-bold text-gray-800">Online Users</h2>
+                </div>
+
+                <ul id="usersList" class="space-y-2">
+                    <li class="text-gray-500 text-sm">No users online</li>
+                </ul>
+            </div>
+
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg flex items-center justify-center mr-3">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-lg md:text-xl font-bold text-gray-800">Share a File</h2>
+                </div>
+                <div class="space-y-4">
+                    <input type="file" id="fileInput" class="hidden" multiple />
+                    <button id="selectFileBtn" class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-medium py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg text-sm md:text-base">
+                        Choose Files
+                    </button>
+                    
+                    <div id="fileInfo" class="hidden">
+                        <div class="border border-green-200 rounded-xl p-4 bg-gradient-to-r from-green-50 to-emerald-50">
+                            <p class="text-sm text-green-700 font-medium mb-2">Selected files:</p>
+                            <div id="fileList" class="space-y-2 max-h-32 overflow-y-auto"></div>
+                            <p id="totalSize" class="text-sm text-green-600 mt-2"></p>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-3 text-center">Click on a user from the list to send the files</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-600 rounded-lg flex items-center justify-center mr-3">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-lg md:text-xl font-bold text-gray-800">Transfer Status</h2>
+                </div>
+                <div id="transferStatus" class="hidden">
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-2">
+                            <span id="transferInfo" class="font-medium">Sending file...</span>
+                            <span id="transferProgress" class="font-bold text-purple-600">0%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                            <div id="progressBar" class="bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full transition-all duration-300 shadow-sm" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="noTransfer" class="text-gray-500 text-sm text-center py-4">
+                    No active transfer
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-4 md:p-6 mt-6">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-gradient-to-r from-orange-500 to-red-600 rounded-lg flex items-center justify-center mr-3">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-lg md:text-xl font-bold text-gray-800">Activity Log</h2>
+                </div>
+                <button id="toggleLog" class="text-sm bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-medium px-3 py-1 rounded-lg transition-all duration-200">
+                    Show Log
+                </button>
+            </div>
+            <div id="statusLog" class="space-y-2 max-h-48 overflow-y-auto hidden bg-gray-50/50 rounded-xl p-3">
+                <div class="text-gray-500 text-sm">Waiting for activity...</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="transferModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl max-w-md w-full border border-white/20">
+            <div class="p-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mr-3">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg md:text-xl font-bold text-gray-800">Incoming File Transfer</h3>
+                </div>
+                <div class="space-y-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-100">
+                    <div class="flex justify-between">
+                        <span class="text-sm text-gray-600 font-medium">From:</span>
+                        <span id="senderName" class="text-sm md:text-base font-bold text-gray-800"></span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-sm text-gray-600 font-medium">File:</span>
+                        <span id="incomingFileName" class="text-sm md:text-base font-bold text-gray-800"></span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-sm text-gray-600 font-medium">Size:</span>
+                        <span id="incomingFileSize" class="text-sm md:text-base font-bold text-gray-800"></span>
+                    </div>
+                </div>
+                <div class="flex space-x-3 mt-6">
+                    <button id="acceptBtn" class="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-medium py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg text-sm md:text-base">
+                        Accept
+                    </button>
+                    <button id="rejectBtn" class="flex-1 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white font-medium py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg text-sm md:text-base">
+                        Reject
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Local network discovery using WebRTC and local signaling
+        const ICE_SERVERS = [{ urls: 'stun:stun.l.google.com:19302' }];
+        const CHUNK_SIZE = 64 * 1024;
+        const DISCOVERY_INTERVAL = 2000; // Check for peers every 2 seconds
+        
+        // Try multiple signaling servers for local network discovery
+        const SIGNALING_SERVERS = [
+            'wss://your-app-name.onrender.com',
+            'ws://localhost:4000',
+            'ws://192.168.1.1:4000',
+            'ws://192.168.0.1:4000',
+            'wss://socketsbay.com/wss/v2/1/demo/'
+        ];
+
+        let username = '';
+        let userId = '';
+        let selectedFiles = [];
+        let peers = new Map();
+        let currentTransfer = null;
+        let receivedFiles = [];
+        let currentFileChunks = [];
+        let currentFileExpectedSize = 0;
+        let currentFileReceivedSize = 0;
+        let currentFileMetadata = null;
+        let discoveryInterval = null;
+        let localPeers = new Map();
+        let ws = null;
+        let currentSignalingServer = 0;
+
+        function init() {
+            generateUsername();
+            setupEventListeners();
+            
+            // Test localStorage
+            try {
+                localStorage.setItem('test', 'test');
+                localStorage.removeItem('test');
+                addLog('localStorage is working');
+            } catch (e) {
+                addLog('localStorage is not available: ' + e.message);
+                return;
+            }
+            
+            startLocalDiscovery();
+        }
+
+        function generateUsername() {
+            const adjectives = ['Brave', 'Clever', 'Swift', 'Bright', 'Wise', 'Noble', 'Gentle', 'Wild', 'Calm', 'Bold'];
+            const nouns = ['Badger', 'Cat', 'Fox', 'Wolf', 'Bear', 'Eagle', 'Lion', 'Tiger', 'Dolphin', 'Owl'];
+            const randomNum = Math.floor(Math.random() * 1000);
+            username = `${adjectives[Math.floor(Math.random() * adjectives.length)]}${nouns[Math.floor(Math.random() * nouns.length)]}${randomNum}`;
+            userId = Math.random().toString(36).substr(2, 9);
+            document.getElementById('username').textContent = username;
+        }
+
+        function setupEventListeners() {
+            document.getElementById('selectFileBtn').addEventListener('click', () => document.getElementById('fileInput').click());
+            document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+            document.getElementById('acceptBtn').addEventListener('click', acceptTransfer);
+            document.getElementById('rejectBtn').addEventListener('click', rejectTransfer);
+            
+            // Setup log toggle
+            const toggleLogBtn = document.getElementById('toggleLog');
+            const statusLog = document.getElementById('statusLog');
+            
+            toggleLogBtn.addEventListener('click', () => {
+                if (statusLog.classList.contains('hidden')) {
+                    statusLog.classList.remove('hidden');
+                    toggleLogBtn.textContent = 'Hide Log';
+                } else {
+                    statusLog.classList.add('hidden');
+                    toggleLogBtn.textContent = 'Show Log';
+                }
+            });
+        }
+
+        function handleFileSelect(event) {
+            const files = Array.from(event.target.files);
+            if (files.length > 0) {
+                selectedFiles = files;
+                displaySelectedFiles(files);
+                document.getElementById('fileInfo').classList.remove('hidden');
+                
+                const totalSize = files.reduce((sum, file) => sum + file.size, 0);
+                addLog(`${files.length} file(s) selected (${formatFileSize(totalSize)})`);
+            }
+        }
+        
+        function displaySelectedFiles(files) {
+            const fileList = document.getElementById('fileList');
+            const totalSize = document.getElementById('totalSize');
+            
+            fileList.innerHTML = '';
+            let totalBytes = 0;
+            
+            files.forEach((file, index) => {
+                totalBytes += file.size;
+                
+                const fileItem = document.createElement('div');
+                fileItem.className = 'flex items-center justify-between p-2 bg-white rounded-lg border border-green-100';
+                fileItem.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-medium">${index + 1}</span>
+                        <span class="text-sm font-medium text-gray-800 truncate">${file.name}</span>
+                    </div>
+                    <span class="text-xs text-gray-500">${formatFileSize(file.size)}</span>
+                `;
+                fileList.appendChild(fileItem);
+            });
+            
+            totalSize.textContent = `Total: ${formatFileSize(totalBytes)}`;
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function startLocalDiscovery() {
+            updateConnectionStatus(true, 'Network Discovery Active');
+            addLog('Started network peer discovery');
+            addLog(`Your ID: ${userId}, Username: ${username}`);
+            
+            // Try to connect to signaling servers
+            connectToSignalingServer();
+            
+            // Start discovery interval
+            discoveryInterval = setInterval(discoverPeers, DISCOVERY_INTERVAL);
+            
+            // Initial discovery
+            discoverPeers();
+            
+            // Add refresh button
+            const refreshBtn = document.createElement('button');
+            refreshBtn.textContent = 'Refresh';
+            refreshBtn.className = 'bg-blue-500 hover:bg-blue-600 text-white text-xs px-2 py-1 rounded ml-4';
+            refreshBtn.onclick = () => {
+                addLog('Manual peer refresh triggered');
+                discoverPeers();
+            };
+            document.querySelector('.flex.items-center').appendChild(refreshBtn);
+        }
+
+        function connectToSignalingServer() {
+            if (currentSignalingServer >= SIGNALING_SERVERS.length) {
+                addLog('All signaling servers failed, using fallback discovery');
+                return;
+            }
+            
+            const serverUrl = SIGNALING_SERVERS[currentSignalingServer];
+            addLog(`Connecting to signaling server: ${serverUrl}`);
+            
+            try {
+                ws = new WebSocket(serverUrl);
+                
+                ws.onopen = () => {
+                    addLog(`Connected to signaling server: ${serverUrl}`);
+                    updateConnectionStatus(true, 'Connected to Network');
+                    // Send our presence
+                    sendSignal('join', {
+                        userId: userId,
+                        username: username
+                    });
+                };
+                
+                ws.onmessage = (event) => {
+                    try {
+                        const message = JSON.parse(event.data);
+                        handleSignalingMessage(message);
+                    } catch (e) {
+                        addLog('Error parsing signaling message: ' + e.message);
+                    }
+                };
+                
+                ws.onerror = (error) => {
+                    addLog(`WebSocket error: ${error}`);
+                };
+                
+                ws.onclose = () => {
+                    addLog(`Disconnected from signaling server: ${serverUrl}`);
+                    updateConnectionStatus(false, 'Disconnected');
+                    // Try next server after a delay
+                    setTimeout(() => {
+                        currentSignalingServer++;
+                        connectToSignalingServer();
+                    }, 2000);
+                };
+                
+            } catch (error) {
+                addLog(`Failed to connect to ${serverUrl}: ${error.message}`);
+                currentSignalingServer++;
+                setTimeout(connectToSignalingServer, 1000);
+            }
+        }
+        
+        function handleSignalingMessage(message) {
+            switch (message.type) {
+                case 'peers':
+                    updatePeersList(message.peers);
+                    break;
+                case 'offer':
+                case 'answer':
+                case 'ice-candidate':
+                    handleSignal(message);
+                    break;
+                default:
+                    addLog(`Unknown signaling message type: ${message.type}`);
+            }
+        }
+        
+        function updatePeersList(peers) {
+            // Clear current list
+            const usersList = document.getElementById('usersList');
+            usersList.innerHTML = '';
+            
+            if (peers.length === 0) {
+                const li = document.createElement('li');
+                li.className = 'text-gray-500 text-sm';
+                li.textContent = 'No users online';
+                usersList.appendChild(li);
+                return;
+            }
+            
+            // Add each peer
+            peers.forEach(peer => {
+                if (peer.userId !== userId) {
+                    addUser(peer.userId, peer.username);
+                }
+            });
+            
+            addLog(`Updated peer list: ${peers.length} peer(s)`);
+        }
+        
+        function updateConnectionStatus(connected, text) {
+            document.getElementById('connectionStatus').className = `w-3 h-3 rounded-full mr-2 ${connected ? 'bg-green-500' : 'bg-red-500'}`;
+            document.getElementById('statusText').textContent = text;
+        }
+
+        function discoverPeers() {
+            // If WebSocket is connected, request peer list
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                sendSignal('get-peers', { userId: userId });
+            } else {
+                // Fallback to localStorage discovery
+                fallbackDiscovery();
+            }
+        }
+        
+        function fallbackDiscovery() {
+            // Update our own timestamp
+            const peerInfo = {
+                userId: userId,
+                username: username,
+                timestamp: Date.now()
+            };
+            localStorage.setItem('p2p-peer-' + userId, JSON.stringify(peerInfo));
+            
+            // Clean up old entries (older than 10 seconds)
+            const now = Date.now();
+            const keys = Object.keys(localStorage);
+            let foundPeers = 0;
+            
+            keys.forEach(key => {
+                if (key.startsWith('p2p-peer-')) {
+                    try {
+                        const peerData = JSON.parse(localStorage.getItem(key));
+                        if (now - peerData.timestamp > 10000) {
+                            localStorage.removeItem(key);
+                            const peerUserId = key.replace('p2p-peer-', '');
+                            removeUser(peerUserId);
+                        }
+                    } catch (e) {
+                        localStorage.removeItem(key);
+                    }
+                }
+            });
+            
+            // Find other peers
+            keys.forEach(key => {
+                if (key.startsWith('p2p-peer-') && key !== 'p2p-peer-' + userId) {
+                    try {
+                        const peerData = JSON.parse(localStorage.getItem(key));
+                        if (now - peerData.timestamp <= 10000) {
+                            addUser(peerData.userId, peerData.username);
+                            localPeers.set(peerData.userId, peerData);
+                            foundPeers++;
+                        }
+                    } catch (e) {
+                        // Ignore invalid entries
+                    }
+                }
+            });
+            
+            // Debug info
+            if (foundPeers === 0) {
+                addLog(`No peers found (fallback mode). Total localStorage keys: ${keys.length}`);
+                // Show what keys we found for debugging
+                const peerKeys = keys.filter(key => key.startsWith('p2p-peer-'));
+                if (peerKeys.length > 0) {
+                    addLog(`Found keys: ${peerKeys.join(', ')}`);
+                }
+            } else {
+                addLog(`Found ${foundPeers} peer(s) (fallback mode)`);
+            }
+        }
+
+        // Handle signaling through WebSocket or localStorage
+        function sendSignal(type, data) {
+            const signal = {
+                type: type,
+                from: userId,
+                to: data.to || 'broadcast',
+                data: data,
+                timestamp: Date.now()
+            };
+            
+            // Try WebSocket first
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify(signal));
+                return;
+            }
+            
+            // Fallback to localStorage
+            localStorage.setItem(`signal-${Date.now()}-${Math.random()}`, JSON.stringify(signal));
+        }
+        
+        function checkSignals() {
+            const keys = Object.keys(localStorage);
+            const now = Date.now();
+            let signalCount = 0;
+            
+            keys.forEach(key => {
+                if (key.startsWith('signal-')) {
+                    try {
+                        const signal = JSON.parse(localStorage.getItem(key));
+                        
+                        // Remove old signals (older than 30 seconds)
+                        if (now - signal.timestamp > 30000) {
+                            localStorage.removeItem(key);
+                            return;
+                        }
+                        
+                        // Process signals for us
+                        if (signal.to === userId) {
+                            signalCount++;
+                            addLog(`Processing signal: ${signal.data.type} from ${signal.from}`);
+                            handleSignal(signal);
+                            localStorage.removeItem(key);
+                        }
+                    } catch (e) {
+                        addLog('Error processing signal: ' + e.message);
+                        localStorage.removeItem(key);
+                    }
+                }
+            });
+            
+            // Debug: show signal count occasionally
+            if (signalCount > 0) {
+                addLog(`Processed ${signalCount} signal(s)`);
+            }
+        }
+        
+        function handleSignal(signal) {
+            addLog(`Received signal: ${signal.data.type} from ${signal.from}`);
+            
+            // Ensure we have the correct data structure
+            const message = signal.data;
+            if (!message || !message.type) {
+                addLog('Error: Invalid signal format');
+                return;
+            }
+            
+            switch (message.type) {
+                case 'offer':
+                    handleOffer(message);
+                    break;
+                    
+                case 'answer':
+                    handleAnswer(message);
+                    break;
+                    
+                case 'candidate':
+                    handleCandidate(message);
+                    break;
+                    
+                case 'reject':
+                    handleReject(message);
+                    break;
+                    
+                default:
+                    addLog(`Unknown signal type: ${message.type}`);
+            }
+        }
+
+        function addUser(userId, username) {
+            const usersList = document.getElementById('usersList');
+            const existingUser = document.querySelector(`[data-user-id="${userId}"]`);
+            if (!existingUser) {
+                const li = document.createElement('li');
+                li.className = 'flex items-center justify-between p-2 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors';
+                li.setAttribute('data-user-id', userId);
+                li.innerHTML = `
+                    <span class="font-medium text-gray-800">${username}</span>
+                    <span class="text-xs text-gray-500">Online</span>
+                `;
+                
+                li.addEventListener('click', () => selectUser(userId, username));
+                usersList.appendChild(li);
+                
+                const noUsersMsg = usersList.querySelector('.text-gray-500');
+                if (noUsersMsg && noUsersMsg.textContent === 'No users online') {
+                    noUsersMsg.remove();
+                }
+                
+                addLog(`${username} joined`);
+            }
+        }
+
+        function removeUser(userId) {
+            const userEl = document.querySelector(`[data-user-id="${userId}"]`);
+            if (userEl) {
+                const username = userEl.querySelector('.font-medium').textContent;
+                userEl.remove();
+                
+                const usersList = document.getElementById('usersList');
+                if (usersList.children.length === 0) {
+                    const li = document.createElement('li');
+                    li.className = 'text-gray-500 text-sm';
+                    li.textContent = 'No users online';
+                    usersList.appendChild(li);
+                }
+                
+                addLog(`${username} left`);
+            }
+        }
+
+        function selectUser(userId, username) {
+            if (selectedFiles.length === 0) {
+                addLog('Please select files first');
+                return;
+            }
+            
+            addLog(`Initiating transfer of ${selectedFiles.length} file(s) to ${username}...`);
+            initiateTransfer(userId);
+        }
+
+        async function initiateTransfer(targetUserId) {
+            try {
+                const peerConnection = new RTCPeerConnection({ iceServers: ICE_SERVERS });
+                peers.set(targetUserId, peerConnection);
+                
+                // Add ICE candidate handling
+                peerConnection.onicecandidate = (event) => {
+                    if (event.candidate) {
+                        sendSignal('candidate', {
+                            type: 'candidate',
+                            from: userId,
+                            to: targetUserId,
+                            candidate: event.candidate
+                        });
+                    }
+                };
+                
+                const dataChannel = peerConnection.createDataChannel('fileTransfer', {
+                    ordered: true
+                });
+                
+                setupDataChannel(dataChannel, true);
+                
+                const offer = await peerConnection.createOffer();
+                await peerConnection.setLocalDescription(offer);
+                
+                // Include file metadata in the offer
+                const fileMetadata = selectedFiles.map(file => ({
+                    name: file.name,
+                    size: file.size,
+                    type: file.type
+                }));
+                
+                const totalSize = selectedFiles.reduce((sum, file) => sum + file.size, 0);
+                
+                const offerData = {
+                    type: 'offer',
+                    from: userId,
+                    to: targetUserId,
+                    offer: offer,
+                    files: fileMetadata,
+                    totalSize: totalSize,
+                    fileCount: selectedFiles.length,
+                    senderName: username
+                };
+                
+                sendSignal('offer', offerData);
+                
+                addLog('Waiting for recipient to accept...');
+                updateTransferStatus('Waiting for acceptance...', 0);
+                
+            } catch (error) {
+                addLog('Error initiating transfer: ' + error.message);
+            }
+        }
+
+        async function handleOffer(message) {
+            try {
+                const peerConnection = new RTCPeerConnection({ iceServers: ICE_SERVERS });
+                peers.set(message.from, peerConnection);
+                
+                // Add ICE candidate handling
+                peerConnection.onicecandidate = (event) => {
+                    if (event.candidate) {
+                        sendSignal('candidate', {
+                            type: 'candidate',
+                            from: userId,
+                            to: message.from,
+                            candidate: event.candidate
+                        });
+                    }
+                };
+                
+                peerConnection.ondatachannel = (event) => {
+                    setupDataChannel(event.channel, false);
+                };
+                
+                await peerConnection.setRemoteDescription(message.offer);
+                
+                currentTransfer = message;
+                showTransferModal(message);
+                
+                addLog(`Received file transfer offer from ${message.senderName || 'Unknown'}`);
+                
+            } catch (error) {
+                addLog('Error handling offer: ' + error.message);
+            }
+        }
+
+        function showTransferModal(message) {
+            document.getElementById('senderName').textContent = message.senderName || 'Unknown';
+            
+            if (message.files && message.files.length > 0) {
+                // Multiple files
+                const fileNames = message.files.map(f => f.name).join(', ');
+                const displayName = fileNames.length > 50 ? fileNames.substring(0, 50) + '...' : fileNames;
+                document.getElementById('incomingFileName').textContent = displayName;
+                document.getElementById('incomingFileSize').textContent = `${message.fileCount} file(s) - ${formatFileSize(message.totalSize)}`;
+            } else {
+                // Single file (fallback)
+                document.getElementById('incomingFileName').textContent = message.fileName || 'Unknown file';
+                document.getElementById('incomingFileSize').textContent = formatFileSize(message.fileSize) || 'Unknown size';
+            }
+            
+            document.getElementById('transferModal').classList.remove('hidden');
+        }
+
+        async function acceptTransfer() {
+            try {
+                const peerConnection = peers.get(currentTransfer.from);
+                if (!peerConnection) return;
+                
+                const answer = await peerConnection.createAnswer();
+                await peerConnection.setLocalDescription(answer);
+                
+                sendSignal('answer', {
+                    type: 'answer',
+                    from: userId,
+                    to: currentTransfer.from,
+                    answer: answer
+                });
+                
+                document.getElementById('transferModal').classList.add('hidden');
+                addLog('Transfer accepted, starting download...');
+                updateTransferStatus('Receiving file...', 0);
+                
+            } catch (error) {
+                addLog('Error accepting transfer: ' + error.message);
+            }
+        }
+
+        function rejectTransfer() {
+            sendSignal('reject', {
+                type: 'reject',
+                from: userId,
+                to: currentTransfer.from
+            });
+            
+            document.getElementById('transferModal').classList.add('hidden');
+            addLog('Transfer rejected');
+            
+            const peerConnection = peers.get(currentTransfer.from);
+            if (peerConnection) {
+                peerConnection.close();
+                peers.delete(currentTransfer.from);
+            }
+        }
+
+        async function handleAnswer(message) {
+            try {
+                addLog(`Handling answer from ${message.from}`);
+                const peerConnection = peers.get(message.from);
+                if (peerConnection) {
+                    await peerConnection.setRemoteDescription(message.answer);
+                    addLog('Transfer accepted by recipient - connection established');
+                    updateTransferStatus('Connection established, starting transfer...', 0);
+                } else {
+                    addLog('Error: No peer connection found for answer');
+                }
+            } catch (error) {
+                addLog('Error handling answer: ' + error.message);
+            }
+        }
+
+        async function handleCandidate(message) {
+            try {
+                const peerConnection = peers.get(message.from);
+                if (peerConnection) {
+                    await peerConnection.addIceCandidate(message.candidate);
+                }
+            } catch (error) {
+                addLog('Error handling ICE candidate: ' + error.message);
+            }
+        }
+
+        function handleReject(message) {
+            addLog('Transfer was rejected by recipient');
+            updateTransferStatus('Transfer rejected', 0);
+            
+            const peerConnection = peers.get(message.from);
+            if (peerConnection) {
+                peerConnection.close();
+                peers.delete(message.from);
+            }
+        }
+
+        function setupDataChannel(dataChannel, isSender) {
+            addLog(`Setting up data channel (${isSender ? 'sender' : 'receiver'})`);
+            
+            dataChannel.onopen = () => {
+                addLog(`Data channel opened for ${isSender ? 'sending' : 'receiving'}`);
+                if (isSender) {
+                    // Small delay to ensure channel is ready
+                    setTimeout(() => {
+                        sendFile(dataChannel);
+                    }, 100);
+                }
+            };
+            
+            if (!isSender) {
+                dataChannel.onmessage = (event) => {
+                    addLog('Received data on channel');
+                    handleFileData(event.data);
+                };
+            }
+            
+            dataChannel.onclose = () => {
+                addLog('Data channel closed');
+            };
+            
+            dataChannel.onerror = (error) => {
+                addLog('Data channel error: ' + error.message);
+            };
+        }
+
+        let currentFileIndex = 0;
+        let currentFileOffset = 0;
+        
+        function sendFile(dataChannel) {
+            if (selectedFiles.length === 0) {
+                addLog('Error: No files selected for transfer');
+                return;
+            }
+            
+            currentFileIndex = 0;
+            currentFileOffset = 0;
+            sendNextFile(dataChannel);
+        }
+        
+        function sendNextFile(dataChannel) {
+            if (currentFileIndex >= selectedFiles.length) {
+                // All files completed
+                const completeMessage = JSON.stringify({
+                    type: 'complete',
+                    fileCount: selectedFiles.length,
+                    totalSize: selectedFiles.reduce((sum, file) => sum + file.size, 0)
+                });
+                
+                dataChannel.send(completeMessage);
+                addLog('All files transfer completed');
+                updateTransferStatus('Transfer complete', 100);
+                return;
+            }
+            
+            const currentFile = selectedFiles[currentFileIndex];
+            addLog(`Starting file ${currentFileIndex + 1}/${selectedFiles.length}: ${currentFile.name}`);
+            
+            // Send file metadata
+            const metadataMessage = JSON.stringify({
+                type: 'metadata',
+                fileName: currentFile.name,
+                fileSize: currentFile.size,
+                fileType: currentFile.type,
+                fileIndex: currentFileIndex,
+                totalFiles: selectedFiles.length
+            });
+            
+            dataChannel.send(metadataMessage);
+            addLog(`Sent metadata for file ${currentFileIndex + 1}`);
+            
+            // Start reading the file
+            const reader = new FileReader();
+            currentFileOffset = 0;
+            
+            reader.onload = (e) => {
+                const chunk = e.target.result;
+                
+                try {
+                    const message = JSON.stringify({
+                        type: 'chunk',
+                        data: Array.from(new Uint8Array(chunk)),
+                        offset: currentFileOffset,
+                        total: currentFile.size,
+                        fileIndex: currentFileIndex
+                    });
+                    
+                    dataChannel.send(message);
+                    
+                    currentFileOffset += chunk.byteLength;
+                    
+                    // Calculate overall progress
+                    const totalSize = selectedFiles.reduce((sum, file) => sum + file.size, 0);
+                    const completedSize = selectedFiles.slice(0, currentFileIndex).reduce((sum, file) => sum + file.size, 0) + currentFileOffset;
+                    const progress = Math.round((completedSize / totalSize) * 100);
+                    
+                    updateTransferStatus(`Sending file ${currentFileIndex + 1}/${selectedFiles.length}: ${progress}%`, progress);
+                    
+                    if (currentFileOffset < currentFile.size) {
+                        const nextChunk = currentFile.slice(currentFileOffset, currentFileOffset + CHUNK_SIZE);
+                        reader.readAsArrayBuffer(nextChunk);
+                    } else {
+                        // Current file completed, move to next
+                        addLog(`File ${currentFileIndex + 1} completed`);
+                        currentFileIndex++;
+                        sendNextFile(dataChannel);
+                    }
+                } catch (error) {
+                    addLog('Error sending chunk: ' + error.message);
+                }
+            };
+            
+            const firstChunk = currentFile.slice(0, CHUNK_SIZE);
+            reader.readAsArrayBuffer(firstChunk);
+        }
+
+        function handleFileData(data) {
+            try {
+                addLog('Processing received data');
+                const message = JSON.parse(data);
+                
+                switch (message.type) {
+                    case 'metadata':
+                        // Start receiving a new file
+                        currentFileChunks = [];
+                        currentFileReceivedSize = 0;
+                        currentFileExpectedSize = message.fileSize;
+                        currentFileMetadata = message;
+                        addLog(`Receiving file ${message.fileIndex + 1}/${message.totalFiles}: ${message.fileName} (${formatFileSize(message.fileSize)})`);
+                        break;
+                        
+                    case 'chunk':
+                        const chunk = new Uint8Array(message.data);
+                        currentFileChunks.push(chunk);
+                        currentFileReceivedSize += chunk.length;
+                        
+                        const progress = Math.round((currentFileReceivedSize / currentFileExpectedSize) * 100);
+                        updateTransferStatus(`Receiving file ${message.fileIndex + 1}/${message.totalFiles}: ${progress}%`, progress);
+                        
+                        // Check if current file is complete
+                        if (currentFileReceivedSize >= currentFileExpectedSize) {
+                            // File is complete, save it
+                            receivedFiles.push({
+                                name: currentFileMetadata.fileName,
+                                type: currentFileMetadata.fileType,
+                                chunks: [...currentFileChunks]
+                            });
+                            addLog(`File ${message.fileIndex + 1} completed`);
+                        }
+                        break;
+                        
+                    case 'complete':
+                        addLog('Received complete signal, creating files...');
+                        
+                        // Create download links for all received files
+                        receivedFiles.forEach((fileData, index) => {
+                            const blob = new Blob(fileData.chunks, { type: fileData.type });
+                            const url = URL.createObjectURL(blob);
+                            
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = fileData.name;
+                            a.style.display = 'none';
+                            document.body.appendChild(a);
+                            
+                            // Trigger automatic download
+                            a.click();
+                            
+                            // Clean up
+                            document.body.removeChild(a);
+                            URL.revokeObjectURL(url);
+                            
+                            // Add success message to log
+                            const logEntry = document.createElement('div');
+                            logEntry.className = 'flex items-center p-2 bg-green-50 rounded-lg';
+                            logEntry.innerHTML = `
+                                <span class="text-sm text-green-800">✅ File ${index + 1} downloaded: ${fileData.name}</span>
+                            `;
+                            document.getElementById('statusLog').appendChild(logEntry);
+                        });
+                        
+                        addLog(`All ${receivedFiles.length} files downloaded automatically`);
+                        updateTransferStatus('Transfer complete', 100);
+                        receivedFiles = []; // Reset for next transfer
+                        break;
+                        
+                    default:
+                        addLog(`Unknown message type: ${message.type}`);
+                }
+            } catch (error) {
+                addLog('Error handling file data: ' + error.message);
+                addLog('Raw data: ' + data.substring(0, 100));
+            }
+        }
+
+        function updateTransferStatus(info, progress) {
+            document.getElementById('transferStatus').classList.remove('hidden');
+            document.getElementById('noTransfer').classList.add('hidden');
+            document.getElementById('transferInfo').textContent = info;
+            document.getElementById('transferProgress').textContent = `${progress}%`;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+        }
+
+        function addLog(message) {
+            const logEntry = document.createElement('div');
+            logEntry.className = 'text-sm text-gray-600 border-l-2 border-blue-500 pl-3 py-1';
+            logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            document.getElementById('statusLog').appendChild(logEntry);
+            document.getElementById('statusLog').scrollTop = document.getElementById('statusLog').scrollHeight;
+        }
+
+        // Start signal checking more frequently
+        setInterval(checkSignals, 500);
+        
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('SW registered: ', registration);
+                        addLog('PWA: Service Worker registered successfully');
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                        addLog('PWA: Service Worker registration failed');
+                    });
+            });
+        }
+        
+        // PWA Install Prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Show install button if not already installed
+            if (!window.matchMedia('(display-mode: standalone)').matches) {
+                showInstallPrompt();
+            }
+        });
+        
+        function showInstallPrompt() {
+            const installBtn = document.createElement('button');
+            installBtn.textContent = '📱 Install App';
+            installBtn.className = 'text-sm bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-medium px-3 py-1 rounded-lg transition-all duration-200 ml-2';
+            installBtn.onclick = () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                        if (choiceResult.outcome === 'accepted') {
+                            addLog('PWA: App installed successfully');
+                        } else {
+                            addLog('PWA: App installation declined');
+                        }
+                        deferredPrompt = null;
+                        installBtn.remove();
+                    });
+                }
+            };
+            
+            // Add to the header area
+            const headerArea = document.querySelector('.flex.items-center');
+            if (headerArea) {
+                headerArea.appendChild(installBtn);
+            }
+        }
+        
+        window.addEventListener('beforeunload', () => {
+            if (discoveryInterval) {
+                clearInterval(discoveryInterval);
+            }
+            localStorage.removeItem('p2p-peer-' + userId);
+        });
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
