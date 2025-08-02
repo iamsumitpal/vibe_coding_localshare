@@ -381,8 +381,13 @@
                     break;
                 case 'offer':
                 case 'answer':
-                case 'ice-candidate':
-                    handleSignal(message);
+                case 'candidate':
+                    // Handle direct WebRTC signals
+                    handleSignal({
+                        from: message.from,
+                        to: message.to,
+                        data: message
+                    });
                     break;
                 default:
                     addLog(`Unknown signaling message type: ${message.type}`);
@@ -630,6 +635,15 @@
                 const peerConnection = new RTCPeerConnection({ iceServers: ICE_SERVERS });
                 peers.set(targetUserId, peerConnection);
                 
+                // Monitor connection state
+                peerConnection.onconnectionstatechange = () => {
+                    addLog(`Connection state: ${peerConnection.connectionState}`);
+                };
+                
+                peerConnection.oniceconnectionstatechange = () => {
+                    addLog(`ICE connection state: ${peerConnection.iceConnectionState}`);
+                };
+                
                 // Add ICE candidate handling
                 peerConnection.onicecandidate = (event) => {
                     if (event.candidate) {
@@ -676,6 +690,17 @@
                 addLog('Waiting for recipient to accept...');
                 updateTransferStatus('Waiting for acceptance...', 0);
                 
+                // Add timeout for transfer
+                setTimeout(() => {
+                    const peerConnection = peers.get(targetUserId);
+                    if (peerConnection && peerConnection.connectionState !== 'connected') {
+                        addLog('Transfer timeout - connection not established');
+                        updateTransferStatus('Transfer timeout', 0);
+                        peerConnection.close();
+                        peers.delete(targetUserId);
+                    }
+                }, 30000); // 30 second timeout
+                
             } catch (error) {
                 addLog('Error initiating transfer: ' + error.message);
             }
@@ -685,6 +710,15 @@
             try {
                 const peerConnection = new RTCPeerConnection({ iceServers: ICE_SERVERS });
                 peers.set(message.from, peerConnection);
+                
+                // Monitor connection state
+                peerConnection.onconnectionstatechange = () => {
+                    addLog(`Connection state: ${peerConnection.connectionState}`);
+                };
+                
+                peerConnection.oniceconnectionstatechange = () => {
+                    addLog(`ICE connection state: ${peerConnection.iceConnectionState}`);
+                };
                 
                 // Add ICE candidate handling
                 peerConnection.onicecandidate = (event) => {
@@ -702,7 +736,7 @@
                     setupDataChannel(event.channel, false);
                 };
                 
-                await peerConnection.setRemoteDescription(message.offer);
+                await peerConnection.setRemoteDescription(message.data.offer);
                 
                 currentTransfer = message;
                 showTransferModal(message);
@@ -778,7 +812,7 @@
                 addLog(`Handling answer from ${message.from}`);
                 const peerConnection = peers.get(message.from);
                 if (peerConnection) {
-                    await peerConnection.setRemoteDescription(message.answer);
+                    await peerConnection.setRemoteDescription(message.data.answer);
                     addLog('Transfer accepted by recipient - connection established');
                     updateTransferStatus('Connection established, starting transfer...', 0);
                 } else {
@@ -793,7 +827,7 @@
             try {
                 const peerConnection = peers.get(message.from);
                 if (peerConnection) {
-                    await peerConnection.addIceCandidate(message.candidate);
+                    await peerConnection.addIceCandidate(message.data.candidate);
                 }
             } catch (error) {
                 addLog('Error handling ICE candidate: ' + error.message);
@@ -838,6 +872,11 @@
             dataChannel.onerror = (error) => {
                 addLog('Data channel error: ' + error.message);
             };
+            
+            // Add connection state change monitoring
+            if (dataChannel.readyState !== undefined) {
+                addLog(`Data channel state: ${dataChannel.readyState}`);
+            }
         }
 
         let currentFileIndex = 0;

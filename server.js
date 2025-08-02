@@ -119,7 +119,7 @@ wss.on('connection', (ws) => {
                     
                 case 'offer':
                 case 'answer':
-                case 'ice-candidate':
+                case 'candidate':
                     // Relay signal to target peer
                     const targetPeer = peers.get(data.to);
                     if (targetPeer && targetPeer.ws.readyState === WebSocket.OPEN) {
